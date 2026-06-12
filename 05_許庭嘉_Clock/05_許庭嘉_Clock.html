@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: url("./background.png") center fixed no-repeat;
+        background-size: cover;
+        margin: 0;
+        height: 100vh;
+        position: relative;
+      }
+
+      #clock {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 150px;
+        margin: auto;
+        padding: 50px;
+        text-align: center;
+        border: none;
+        /* border: 2px solid #00ffff; */
+        color: #ff00ff;
+        box-shadow:
+          0 0 10px#00FFFF,
+          inset 0 0 10px #00ffff;
+        text-shadow:
+          0 0 5px #00ffff,
+          0 0 10px #00ffff,
+          0 0 20px #00ffff,
+          0 0 40px #00ffff;
+        font-family: "Orbitron", sans-serif;
+        animation: flicker 0.15s infinite;
+      }
+
+      #date {
+        font-size: 2.5rem;
+        font-weight: bolder;
+        letter-spacing: 2px;
+      }
+
+      #week {
+        font-size: 2rem;
+        letter-spacing: 4px;
+        margin: 4px 0;
+      }
+
+      #time {
+        font-size: 2.5rem;
+        font-weight: 900;
+        letter-spacing: 4px;
+      }
+
+      @keyframes flicker {
+        0%,
+        100% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.85;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="clock">
+      <div id="date"></div>
+      <div id="week"></div>
+      <div id="time"></div>
+    </div>
+    <script>
+      const dateDiv = document.getElementById("date");
+      const weekDiv = document.getElementById("week");
+      const timeDiv = document.getElementById("time");
+
+      const weeks = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+      const clock = () => {
+        const now = new Date();
+        const h = String(now.getHours()).padStart(2, "0");
+        const m = String(now.getMinutes()).padStart(2, "0");
+        const s = String(now.getSeconds()).padStart(2, "0");
+        const y = now.getFullYear();
+        const mon = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+
+        dateDiv.textContent = `${y}.${mon}.${d}`;
+        weekDiv.textContent = weeks[now.getDay()];
+        timeDiv.textContent = `${h}:${m}:${s}`;
+      };
+      clock();
+      setInterval(clock, 1000);
+    </script>
+  </body>
+</html>
